@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# claude-statusline - a Claude Code status line: session name, model, context used, 5-hour rate limit, folder, git branch.
+# Reads the session JSON on stdin; prints one line without a trailing newline; never fails.
+# Set it in ~/.claude/settings.json: "statusLine": { "type": "command", "command": "~/.local/bin/claude-statusline" }
+input="$(cat)"
+jq -r '
+    def pct: if . == null then empty else "\(. | floor)%" end;
+    [ (.session_name // empty),
+      (.model.display_name // empty),
+      ((.context_window.used_percentage | pct) as $p | "ctx \($p)"),
+      ((.rate_limits.five_hour.used_percentage | pct) as $p | "5h \($p)"),
+      ((.workspace.current_dir // .cwd // "") | sub("^" + env.HOME; "~"))
+    ] | map(select(. != "")) | join(" · ")' <<<"$input" 2>/dev/null | tr -d '\n'
+dir="$(jq -r '.workspace.current_dir // .cwd // empty' <<<"$input" 2>/dev/null)"
+branch="$([[ -n "$dir" ]] && git -C "$dir" branch --show-current 2>/dev/null)"
+[[ -n "$branch" ]] && printf ' · %s' "$branch"
+exit 0

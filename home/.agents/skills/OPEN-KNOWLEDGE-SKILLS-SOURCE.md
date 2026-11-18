@@ -1,0 +1,3 @@
+# OpenKnowledge Skills source
+
+Six skill bundles from [`inkeep/open-knowledge-skills`](https://github.com/inkeep/open-knowledge-skills) (copied from commit `79cc331fab59a857e6ed58e01e76814a564128fa`) remain: `frame-a-proposal`, `record-a-decision`, `write-a-spec`, `review-a-design`, `write-a-postmortem`, `software-lifecycle`. They are plain document-craft guidance. The OpenKnowledge runtime itself (its MCP server, its project-structure skills such as `knowledge-base`, `codebase-wiki`, `okf-knowledge-base`, `note-taking`) was removed on 2026-11-11: the dev layer no longer uses it. Documents it produced stay where they are. The upstream MIT license is in `OPEN-KNOWLEDGE-SKILLS-LICENSE`.

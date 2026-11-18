@@ -1,0 +1,14 @@
+.DS_Store
+
+# Local, never committed
+home/.config/git/local
+home/.config/fish/conf.d/secrets.fish
+home/.config/fish/fish_variables
+packages/bundle.work
+packages/failed_packages_*.txt
+
+# Written by Fisher (it lives in ~/.local/share/fisher; these are safety nets)
+home/.config/fish/functions/fisher.fish
+home/.config/fish/completions/fisher.fish
+
+node_modules/

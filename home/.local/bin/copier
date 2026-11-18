@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+brew_prefix="$(brew --prefix)"
+expat_prefix="$(brew --prefix expat)"
+export DYLD_LIBRARY_PATH="${expat_prefix}/lib${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}"
+exec "${brew_prefix}/bin/copier" "$@"

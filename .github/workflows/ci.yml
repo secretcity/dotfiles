@@ -1,0 +1,31 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: brew install shellcheck fish stow
+      - name: shellcheck
+        run: shellcheck -S warning dot home/.local/bin/coffee home/.local/bin/agent-repos home/.local/bin/copier home/.local/bin/claude-statusline
+      - name: fish syntax
+        run: find home/.config/fish -name '*.fish' -print0 | xargs -0 -n1 fish -n
+      - name: stow dry run
+        run: mkdir -p "$RUNNER_TEMP/home" && stow -n -v -d . -t "$RUNNER_TEMP/home" home
+      - name: dot help
+        run: ./dot help >/dev/null
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

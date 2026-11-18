@@ -1,0 +1,59 @@
+[alias]
+	fomo = "!fish -c 'git fetch origin $(__git.default_branch) && git rebase origin/$(__git.default_branch) --autostash'"
+	lg = "!fish -c 'git_log_n $argv'"
+	nuke = "!git add --all && git stash && git stash clear"
+
+[branch]
+	sort = "-committerdate"
+
+[column]
+	ui = "auto"
+
+[commit]
+	gpgSign = true
+
+[core]
+	editor = "micro"
+	# fsmonitor off: one daemon per worktree (730 running on 2026-11-10) exhausted macOS file
+	# watches, failing test runs with EMFILE/exit 137 and leaving herdr panes "busy".
+	fsmonitor = false
+	untrackedCache = true
+
+[fetch]
+	prune = true
+	writeCommitGraph = true
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[gpg]
+	format = "ssh"
+
+[init]
+	defaultBranch = "main"
+
+[pull]
+	rebase = true
+
+[rebase]
+	updateRefs = true
+
+[rerere]
+	enabled = true
+
+[tag]
+	gpgSign = true
+
+# The identity ([user] name, email, signingKey) is per machine and not in this repo: ~/.config/git/local.
+[include]
+	path = ~/.config/git/local
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

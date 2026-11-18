@@ -1,0 +1,117 @@
+# Vite Plus node shims can occasionally take longer than Starship's default
+# 500ms timeout to resolve. Give language-version commands a bit more room and
+# avoid probing Node in repos that merely contain JS/TS files.
+command_timeout = 2000
+
+# Put custom.scm right after directory
+format = "$directory${custom.scm}$all"
+
+[buf]
+disabled = true
+
+[character]
+# secretcity: ANSI colour names only, so Ghostty's active theme (Graphite or Fog) supplies the
+# colours. The prompt arrow is the accent: one red mark. A failed command shows a different
+# shape, a red cross, so the accent and a fault are told apart by shape. No yellow anywhere in
+# the prompt: nothing in it waits on you.
+error_symbol = "[✖](bold red)"
+success_symbol = "[󰘧](bold red)"
+vimcmd_visual_symbol = "[❮](bold magenta)"
+
+[directory]
+style = "bold"
+truncate_to_repo = false
+
+[dotnet]
+detect_files = ["global.json", "Directory.Build.props", "Directory.Build.targets", "Packages.props"]
+
+[git_branch]
+style = "bright-black"
+# disabled = true
+symbol = " "
+truncation_length = 18
+
+[git_status]
+style = "magenta"
+# disabled = true
+
+[git_commit]
+# disabled = true
+
+[git_state]
+# disabled = true
+style = "bold magenta"
+
+# [custom.scm]
+# when = "jj-starship detect"
+# shell = ["jj-starship", "--strip-bookmark-prefix", "dmmulroy/", "--truncate-name", "20", "--bookmarks-display-limit", "1"]
+# format = "$output "
+
+[golang]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+# Only show Node for actual Node projects. This avoids unnecessary `node
+# --version` calls in repos that just happen to contain JS/TS files.
+detect_extensions = []
+detect_files = ["package.json", ".node-version", ".nvmrc", ".tool-versions"]
+detect_folders = ["node_modules"]
+
+[package]
+disabled = true
+
+# Starship's own defaults for these modules are yellow; the prompt carries no amber, so they
+# take the header tone (magenta) or dim (bright-black).
+[aws]
+style = "bold magenta"
+
+[cmd_duration]
+style = "bright-black"
+
+[direnv]
+style = "bold magenta"
+
+[guix_shell]
+style = "bold magenta"
+
+[hg_state]
+style = "bold magenta"
+
+[localip]
+style = "bold magenta"
+
+[nim]
+style = "bold magenta"
+
+[ocaml]
+style = "bold magenta"
+
+[openstack]
+style = "bold magenta"
+
+[pixi]
+style = "bold magenta"
+
+[python]
+style = "bold magenta"
+
+[shlvl]
+style = "bold magenta"
+
+[time]
+style = "bold magenta"
+
+[username]
+style_user = "bold magenta"
+
+[vcsh]
+style = "bold magenta"
+
+[zig]
+style = "bold magenta"
